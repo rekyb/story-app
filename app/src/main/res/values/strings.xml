@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Story App</string>
+    <string name="name_hint">Name</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="edit_helper">Required field</string>
+    <string name="email_helper">Invalid email address</string>
+    <string name="password_helper">Password too short</string>
 </resources>
