@@ -5,16 +5,18 @@ plugins {
 
 android {
     namespace 'me.rekyb.storyapp'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "me.rekyb.storyapp"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'String', 'API_ENDPOINT', '"https://story-api.dicoding.dev/v1/"'
     }
 
     buildTypes {
@@ -34,7 +36,7 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

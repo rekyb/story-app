@@ -1,12 +1,11 @@
-package me.rekyb.storyapp.customview
+package me.rekyb.storyapp.ui.customview
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.Patterns
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doOnTextChanged
 import com.google.android.material.textfield.TextInputLayout
 import me.rekyb.storyapp.R
 
@@ -16,6 +15,7 @@ class TextLayout : TextInputLayout {
         private const val NAME_TEXT = 97
         private const val EMAIL_TEXT = 33
         private const val PASSWORD_TEXT = 129
+        private const val BOX_RADIUS = 10f
     }
 
     private lateinit var icName: Drawable
@@ -23,17 +23,17 @@ class TextLayout : TextInputLayout {
     private lateinit var icPassword: Drawable
 
     constructor(context: Context) : super(context) {
-        initLayout()
+        init()
     }
 
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
-        initLayout()
+        init()
     }
 
     constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int) : super(
         context, attributeSet, defStyleAttr
     ) {
-        initLayout()
+        init()
     }
 
     override fun onAttachedToWindow() {
@@ -41,24 +41,16 @@ class TextLayout : TextInputLayout {
         renderTextDecor()
     }
 
-    private fun initLayout() {
-        boxBackgroundMode = BOX_BACKGROUND_OUTLINE
-        boxBackgroundColor = ContextCompat.getColor(context, R.color.white)
+    private fun init() {
+        val boxRadii = BOX_RADIUS
 
-        setHelperTextColor(ContextCompat.getColorStateList(context, R.color.red))
+        isErrorEnabled = true
+
+        setBoxCornerRadii(boxRadii, boxRadii, boxRadii, boxRadii)
         addOnEditTextAttachedListener {
-            it.editText?.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?, start: Int, count: Int, after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-                override fun afterTextChanged(s: Editable?) {
-                    validityCheck(s.toString())
-                }
-            })
+            it.editText?.doOnTextChanged { text, _, _, _ ->
+                validityCheck(text.toString())
+            }
         }
     }
 
@@ -88,20 +80,20 @@ class TextLayout : TextInputLayout {
 
     private fun validityCheck(input: String?) {
         if (input.isNullOrEmpty()) {
-            helperText = context.getString(R.string.edit_helper)
+            error = context.getString(R.string.empty_input_error)
             return
         }
 
         when (editText?.inputType) {
             EMAIL_TEXT -> {
-                if (!Patterns.EMAIL_ADDRESS.matcher(input).matches()) {
-                    helperText = context.getString(R.string.email_helper)
-                } else isHelperTextEnabled = false
+                error = if (!Patterns.EMAIL_ADDRESS.matcher(input).matches()) {
+                    context.getString(R.string.email_error)
+                } else {
+                    null
+                }
             }
             PASSWORD_TEXT -> {
-                if (input.length < 6) {
-                    helperText = context.getString(R.string.password_helper)
-                } else isHelperTextEnabled = false
+                error = if (input.length < 6) context.getString(R.string.password_error) else null
             }
         }
     }

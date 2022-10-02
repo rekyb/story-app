@@ -1,4 +1,4 @@
-package me.rekyb.storyapp.customview
+package me.rekyb.storyapp.ui.customview
 
 import android.content.Context
 import android.graphics.Canvas

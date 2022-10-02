@@ -6,4 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
+    <me.rekyb.storyapp.ui.customview.TextLayout
+        style="@style/CustomTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <me.rekyb.storyapp.ui.customview.EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+    </me.rekyb.storyapp.ui.customview.TextLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

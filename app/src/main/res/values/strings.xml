@@ -3,7 +3,7 @@
     <string name="name_hint">Name</string>
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
-    <string name="edit_helper">Required field</string>
-    <string name="email_helper">Invalid email address</string>
-    <string name="password_helper">Password too short</string>
+    <string name="empty_input_error">Required*</string>
+    <string name="email_error">Invalid email address</string>
+    <string name="password_error">Password too short</string>
 </resources>
